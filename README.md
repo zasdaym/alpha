@@ -9,8 +9,8 @@ The system consists of two binaries, AlphaServer and AlphaClient which communica
 ## Deployment design
 
 The system is deployed using Docker Compose to spawns multiple containers. The roles of each containers are described below:
-- server: Runs the AlphaServer binary, provides web UI to see total SSH log in attempts for all clients.
-- node-abc: Runs the AlphaServer client which watch log file shared with `node-abc-ssh` via bind mounted volume and sends data to `server` to be aggregated.
-- node-abc-ssh: Runs the SSH server client shares log file with `node-abc`. An extra container is used because docker container are designed to run only single process. This pattern also known as "Sidecar pattern".
-- node-xyz: Same like `node-abc`, but with different client ID.
-- node-xyz-ssh: Same like `node-abc-ssh`, but shares log file with `node-xyz`.
+- **server**: Runs the AlphaServer binary, provides web UI to see total SSH log in attempts for all clients.
+- **node-abc**: Runs the AlphaServer client which watch log file shared with `node-abc-ssh` via bind mounted volume and sends data to `server` to be aggregated.
+- **node-abc-ssh**: Runs the SSH server client shares log file with `node-abc`. An extra container is used because docker container are designed to run only single process. This pattern also known as "Sidecar pattern".
+- **node-xyz**: Same like `node-abc`, but with different client ID.
+- **node-xyz-ssh**: Same like `node-abc-ssh`, but shares log file with `node-xyz`.
