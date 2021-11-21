@@ -17,4 +17,4 @@ Components are deployed using Docker Compose to spawns multiple containers. The 
 
 ## Run
 
-You can run the system with `./deploy.sh`. The script will build and deploy all necessary containers and print information on how to interact with the services.
+You can run the system with `./deploy.sh`. Make sure Docker and Docker Compose are installed. The script will build and deploy all necessary containers and print information on how to interact with the services.
