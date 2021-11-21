@@ -4,7 +4,7 @@ AlphaServer and AlphaClient are tools to record SSH log in attempts.
 
 ## Software design
 
-The system consists of two binaries, AlphaServer and AlphaClient which communicates via HTTP. AlphaServer will serves an endpoint which can be called by multiple AlphaClients to "increment" the SSH log in attempt for each AlphaClient identified by client ID. AlphaClient detects a SSH log in attempt by watching the SSH server log file. AlphaServer use in-memory storage, which means every time it is restared the data will disappear.
+The system consists of two binaries, AlphaServer and AlphaClient which communicate via HTTP. AlphaServer will serves an endpoint which can be called by multiple AlphaClients to "increment" the SSH log in attempt for each AlphaClient identified by client ID. AlphaClient detects a SSH log in attempt by watching the SSH server log file. AlphaServer store its data to MongoDB.
 
 ## Deployment design
 
