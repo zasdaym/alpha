@@ -1,0 +1,68 @@
+---
+version: '3.7'
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    ports:
+      - published: 9000
+        target: 8080
+        protocol: tcp
+        mode: host
+
+  node-abc:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    command:
+      - /app/client
+      - -server-url
+      - http://server:8080
+      - -client-id
+      - node-abc
+    volumes:
+      - ./tmp/node-abc/logs:/config/logs:ro
+
+  node-abc-ssh:
+    image: linuxserver/openssh-server:2021.11.14
+    environment:
+      - SUDO_ACCESS=true
+      - PASSWORD_ACCESS=true
+      - USER_NAME=alpha
+      - USER_PASSWORD=alpha
+    ports:
+      - published: 9001
+        target: 2222
+        protocol: tcp
+        mode: host
+    volumes:
+      - ./tmp/node-abc/logs:/config/logs:rw
+
+  node-xyz:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    command:
+      - /app/client
+      - -server-url
+      - http://server:8080
+      - -client-id
+      - node-xyz
+    volumes:
+      - ./tmp/node-xyz/logs:/config/logs:ro
+
+  node-xyz-ssh:
+    image: linuxserver/openssh-server:2021.11.14
+    environment:
+      - SUDO_ACCESS=true
+      - PASSWORD_ACCESS=true
+      - USER_NAME=alpha
+      - USER_PASSWORD=alpha
+    ports:
+      - published: 9002
+        target: 2222
+        protocol: tcp
+        mode: host
+    volumes:
+      - ./tmp/node-xyz/logs:/config/logs:rw
