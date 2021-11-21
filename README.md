@@ -1,6 +1,6 @@
 # Alpha (Server & Client)
 
-AlphaServer and AlphaClient are tools to record SSH login attempts.
+AlphaServer and AlphaClient are tools to record SSH log in attempts.
 
 ## Software design
 
