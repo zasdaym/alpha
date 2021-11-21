@@ -14,3 +14,7 @@ Components are deployed using Docker Compose to spawns multiple containers. The 
 - **node-abc-ssh**: Runs the SSH server client shares log file with `node-abc`. An extra container is used because docker container are designed to run only single process. This pattern also known as "Sidecar pattern".
 - **node-xyz**: Same like `node-abc`, but with different client ID.
 - **node-xyz-ssh**: Same like `node-abc-ssh`, but shares log file with `node-xyz`.
+
+## Run
+
+You can run the system with `./deploy.sh`. This will build and deploy all necessary containers and print information on how to interact with the services.
