@@ -10,6 +10,8 @@ import (
 	"os"
 	"os/signal"
 	"time"
+
+	"github.com/qiniu/qmgo"
 )
 
 func main() {
@@ -23,20 +25,28 @@ func main() {
 
 func run(ctx context.Context) error {
 	addr := flag.String("addr", ":8080", "HTTP server listen address")
+	dbURI := flag.String("db-uri", "mongodb://mongo:27017", "MongoDB URI")
+	dbName := flag.String("db-name", "alpha", "MongoDB DB name")
 	flag.Parse()
 
-	srv := alpha.NewServer()
-	mux := http.NewServeMux()
-	h, err := srv.HandleIndex()
+	client, err := qmgo.Open(ctx, &qmgo.Config{
+		Uri:      *dbURI,
+		Database: *dbName,
+		Coll:     "attempts",
+	})
 	if err != nil {
-		return fmt.Errorf("parsing template: %w", err)
+		return err
 	}
-	mux.HandleFunc("/", h)
-	mux.HandleFunc("/increment", srv.HandleIncrement())
+
+	srv := alpha.NewMongoServer(client)
+	handler, err := srv.Handler()
+	if err != nil {
+		return err
+	}
 
 	httpSrv := &http.Server{
 		Addr:    *addr,
-		Handler: mux,
+		Handler: handler,
 	}
 
 	errCh := make(chan error, 1)

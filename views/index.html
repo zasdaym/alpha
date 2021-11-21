@@ -8,8 +8,8 @@
 </head>
 <body>
     <p>Metrics for SSH log in attempts:</p>
-    {{ range $clientID, $count := .}}
-        <li>{{ $clientID }} had {{ $count }} attempt(s)</li>
+    {{ range $attempt := .}}
+        <li>{{ $attempt.ClientID }} had {{ $attempt.Count }} attempt(s)</li>
     {{ end }}
 </body>
 </html>
