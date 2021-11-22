@@ -7,6 +7,8 @@ import (
 	"log"
 	"net/http"
 
+	_ "embed"
+
 	"github.com/qiniu/qmgo"
 	opts "github.com/qiniu/qmgo/options"
 	"go.mongodb.org/mongo-driver/bson"
